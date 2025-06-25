@@ -1,25 +1,31 @@
 package main
 
 import (
-go.mod "fmt"
-go.mod "log"
-go.mod "net/http"
+	"fmt"
+	"log"
+	"net/http"
 )
 
 func main() {
-go.mod http.HandleFunc("/pull", func(w http.ResponseWriter, r *http.Request) {
-go.mod go.mod key := r.URL.Query().Get("key")
-go.mod go.mod fmt.Fprintf(w, "🔐 Fetched secret for key: %s", key)
-go.mod })
+	http.HandleFunc("/pull", func(w http.ResponseWriter, r *http.Request) {
+		key := r.URL.Query().Get("key")
+		fmt.Fprintf(w, "🔐 Fetched secret for key: %s", key)
+	})
 
-go.mod http.HandleFunc("/inject", func(w http.ResponseWriter, r *http.Request) {
-go.mod go.mod fmt.Fprintln(w, "💾 Secret stored")
-go.mod })
+	http.HandleFunc("/inject", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(w, "💾 Secret stored")
+	})
 
-go.mod http.HandleFunc("/handoff", func(w http.ResponseWriter, r *http.Request) {
-go.mod go.mod fmt.Fprintln(w, "🤝 Secret handed off")
-go.mod })
+	http.HandleFunc("/handoff", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(w, "🤝 Secret handed off")
+	})
 
-go.mod log.Println("Vaultd is running on :8080")
-go.mod log.Fatal(http.ListenAndServe(":8080", nil))
+	http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte(`{"status":"ok"}`))
+	})
+
+	log.Println("Vaultd is running on :8080")
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
