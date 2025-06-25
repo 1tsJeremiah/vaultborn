@@ -1,25 +1,43 @@
 package main
 
 import (
-go.mod "fmt"
-go.mod "log"
-go.mod "net/http"
+	"fmt"
+	"log"
+	"net/http"
+	"os"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
-go.mod http.HandleFunc("/pull", func(w http.ResponseWriter, r *http.Request) {
-go.mod go.mod key := r.URL.Query().Get("key")
-go.mod go.mod fmt.Fprintf(w, "🔐 Fetched secret for key: %s", key)
-go.mod })
+	if err := godotenv.Load(); err != nil {
+		log.Printf("warning: %v", err)
+	}
 
-go.mod http.HandleFunc("/inject", func(w http.ResponseWriter, r *http.Request) {
-go.mod go.mod fmt.Fprintln(w, "💾 Secret stored")
-go.mod })
+	http.HandleFunc("/pull", handlePull)
+	http.HandleFunc("/inject", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(w, "💾 Secret stored")
+	})
+	http.HandleFunc("/handoff", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(w, "🤝 Secret handed off")
+	})
 
-go.mod http.HandleFunc("/handoff", func(w http.ResponseWriter, r *http.Request) {
-go.mod go.mod fmt.Fprintln(w, "🤝 Secret handed off")
-go.mod })
+	log.Println("Vaultd is running on :8080")
+	log.Fatal(http.ListenAndServe(":8080", nil))
+}
 
-go.mod log.Println("Vaultd is running on :8080")
-go.mod log.Fatal(http.ListenAndServe(":8080", nil))
+func handlePull(w http.ResponseWriter, r *http.Request) {
+	key := r.URL.Query().Get("key")
+	if key == "" {
+		http.Error(w, "missing key parameter", http.StatusBadRequest)
+		return
+	}
+
+	val, ok := os.LookupEnv(key)
+	if !ok || val == "" {
+		http.Error(w, "secret not found", http.StatusNotFound)
+		return
+	}
+
+	fmt.Fprint(w, val)
 }
