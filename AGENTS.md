@@ -7,3 +7,10 @@ This project uses append-only, always-synced state docs. All agents (Codex, GPT,
 - All state changes must be logged before/after each action.
 
 For more: see `.llmstate/patch-pipeline.jsonl`.
+
+## Agent Registry
+
+| Agent      | Health Check Command |
+|------------|---------------------|
+| vaultd     | curl -fsS http://localhost:8080/healthz |
+| vault-agent| ./vault-agent/vault-agent --help >/dev/null |
