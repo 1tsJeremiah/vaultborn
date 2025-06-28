@@ -1,13 +1,1 @@
-{ "id": 1, "goal": "Trace every patch with a unique tracking tag", "status": "done", "notes": "Tracking tag (e.g. P2-I1, PTEST-20250627-B) embedded in patch and commit message; automated ghost logs for all patch content." }
-{ "id": 2, "goal": "Apply git patch with explicit, trackable prompt/alias", "status": "done", "notes": "'run-patch' alias launches the atomic patch-to-sync pipeline, micro-enabled, patch sanitized, previewed, archived." }
-{ "id": 3, "goal": "Test & validate patch pipeline", "status": "in-progress", "notes": "Continue stress-testing with malformed patches, large diffs, and legitimate feature branches until no workflow bugs remain." }
-{ "id": 4, "goal": "Brainstorm/implement simplest, lowest-friction patch UX", "status": "pending", "ideas": [
-  "Fully automatic: User drops patch text into Chat, Codex/Canvas emits ready-to-run ACB (atomic cat block)  user copy-pastes as one block, done.",
-  "Semi-automatic: Codex/Canvas writes patch file to a local 'patches' folder via chezmoi or git hooks, user triggers 'patch-now' alias which scans, applies, and archives all pending patches.",
-  "Fallback: Direct copy/paste of git patch into micro, triggered by 'run-patch'  current system, already proofed and robust, but can be improved."
-] }
-{ "id": 5, "goal": "Document pipeline, current state, and next actions in Canvas with source-of-truth", "status": "in-progress", "actions": [
-  "Export this JSONL to a Canvas doc and keep it updated as the canonical patch pipeline history.",
-  "Each ACB or workflow tweak gets a line item/tracking code and state update.",
-  "Review/document after every major improvement or bugfix, referencing commit hashes if possible."
-] }
+{ "id": 1, "goal": "Trace every patch with a unique tracking tag", "status": "done" }

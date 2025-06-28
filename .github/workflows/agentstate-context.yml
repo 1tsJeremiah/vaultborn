@@ -1,0 +1,11 @@
+name: Agent State Bootstrap
+on: [push]
+jobs:
+  context:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Print Agent State
+        run: |
+          cat AGENTS.md
+          cat .llmstate/patch-pipeline.jsonl

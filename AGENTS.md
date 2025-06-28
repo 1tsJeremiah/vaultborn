@@ -1,0 +1,9 @@
+# Project Agents: LLM-Aware Automation
+
+This project uses append-only, always-synced state docs. All agents (Codex, GPT, containers, GitHub Actions, etc) must read `.llmstate/*.jsonl` and `AGENTS.md` on every startup or task.
+
+- State and intent are append-only JSONL files.
+- Never overwrite; always append.
+- All state changes must be logged before/after each action.
+
+For more: see `.llmstate/patch-pipeline.jsonl`.
