@@ -1,1 +1,3 @@
 { "id": 1, "goal": "Trace every patch with a unique tracking tag", "status": "done" }
+{"id": 2, "goal": "Resolve merge conflicts in main.go", "status": "done"}
+{"id": 3, "goal": "Resolve merge conflict and add state docs", "status": "done"}
