@@ -1,0 +1,24 @@
+ # Patch P0003: Static configuration for Traefik
+ entryPoints:
+   web:
+     address: ":80"
+   websecure:
+     address: ":443"
+
+ api:
+   dashboard: true
+   insecure: true
+
+ providers:
+   file:
+     directory: /etc/traefik/dynamic
+     watch: true
+
+ certificatesResolvers:
+   cloudflare:
+     dnsChallenge:
+       provider: cloudflare
+       delayBeforeCheck: 0
+
+ log:
+   level: INFO

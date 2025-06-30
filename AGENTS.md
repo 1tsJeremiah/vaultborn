@@ -14,3 +14,6 @@ For more: see `.llmstate/patch-pipeline.jsonl`.
 |------------|---------------------|
 | vaultd     | curl -fsS http://localhost:8080/healthz |
 | vault-agent| ./vault-agent/vault-agent --help >/dev/null |
+| traefik    | curl -fsS https://traefik.pegasuswingman.com/dashboard/ |
+| weaviate   | curl -fsS -k https://vector.pegasuswingman.com/v1/.well-known/ready |
+| minio      | curl -fsS https://storage.pegasuswingman.com/minio/health/live |

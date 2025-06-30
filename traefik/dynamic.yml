@@ -1,0 +1,48 @@
+ # Patch P0003: Dynamic routing configuration for Traefik
+ http:
+   routers:
+     traefik:
+       entryPoints:
+         - websecure
+       rule: Host(`traefik.pegasuswingman.com`)
+       service: api@internal
+       tls:
+         certResolver: cloudflare
+
+     weaviate:
+       entryPoints:
+         - websecure
+       rule: Host(`vector.pegasuswingman.com`)
+       service: weaviate
+       tls:
+         certResolver: cloudflare
+
+     minio:
+       entryPoints:
+         - websecure
+       rule: Host(`storage.pegasuswingman.com`)
+       service: minio
+       tls:
+         certResolver: cloudflare
+
+     vaultd:
+       entryPoints:
+         - websecure
+       rule: Host(`vault.pegasuswingman.com`)
+       service: vaultd
+       tls:
+         certResolver: cloudflare
+
+   services:
+     weaviate:
+       loadBalancer:
+         servers:
+           - url: http://weaviate:8080
+     minio:
+       loadBalancer:
+         servers:
+           - url: http://minio:9000
+     vaultd:
+       loadBalancer:
+         servers:
+           - url: http://vaultd:8080
