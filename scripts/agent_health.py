@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# PATCH-P0004: safety/lint fixes for agent-health-check script
+# PATCH-P0004: hardening agent_health script
 import os
 import json
 import subprocess
