@@ -1,6 +1,9 @@
+#!/usr/bin/env python3
+# PATCH-P0004: safety/lint fixes for agent-health-check script
 import os
 import json
 import subprocess
+import shlex
 from datetime import datetime
 
 LLMSTATE_DIR = '.llmstate'
@@ -51,16 +54,23 @@ def load_agents_from_state():
     return agents
 
 
+def now_ts():
+    return datetime.utcnow().isoformat() + 'Z'
+
+
 def append_log(record):
     os.makedirs(LLMSTATE_DIR, exist_ok=True)
     with open(HEALTH_LOG, 'a') as f:
-        f.write(json.dumps(record) + '\n')
+        f.write(json.dumps(record, ensure_ascii=False) + '\n')
 
 
 def run_health_check(tag, agent, cmd):
-    start = datetime.utcnow().isoformat() + 'Z'
+    start = now_ts()
     try:
-        result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE,
+        if any(c in cmd for c in (';', '|', '&', '$', '<', '>', '`')):
+            raise ValueError(f'Unsafe characters in command: {cmd}')
+        parts = cmd.split()
+        result = subprocess.run(parts, stdout=subprocess.PIPE,
                                 stderr=subprocess.STDOUT, timeout=30)
         status = 'ok' if result.returncode == 0 else 'fail'
         output = result.stdout.decode(errors='replace').strip()
@@ -87,19 +97,19 @@ def main():
             all_agents[a] = ''
 
     if not all_agents:
-        append_log({'tag': tag, 'timestamp': datetime.utcnow().isoformat() + 'Z',
-                    'event': 'no-agents-found'})
+        append_log({'tag': tag, 'timestamp': now_ts(),
+                    'agent': None, 'event': 'no-agents-found'})
         return
 
     for agent, cmd in all_agents.items():
         if cmd:
             run_health_check(tag, agent, cmd)
         else:
-            append_log({'tag': tag, 'timestamp': datetime.utcnow().isoformat() + 'Z',
+            append_log({'tag': tag, 'timestamp': now_ts(),
                         'agent': agent, 'status': 'unknown', 'output': ''})
 
-    append_log({'tag': tag, 'timestamp': datetime.utcnow().isoformat() + 'Z',
-                'event': 'completed'})
+    append_log({'tag': tag, 'timestamp': now_ts(),
+                'agent': None, 'event': 'completed'})
 
 if __name__ == '__main__':
     main()
