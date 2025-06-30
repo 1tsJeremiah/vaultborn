@@ -1,1 +1,2 @@
 { "id": 1, "goal": "Trace every patch with a unique tracking tag", "status": "done" }
+{ "id": 2, "status": "started", "timestamp": "2025-06-30T06:54:23Z", "goal": "sync patch protocol as JSONL for agent consumption" }
