@@ -1,25 +1,24 @@
- # Patch P0003: Docker Compose stack for traefik/weaviate/minio/vaultd
- version: '3.8'
+# PATCH-P0005: fix traefik image version and remove obsolete compose version
 
- services:
-   traefik:
-     image: traefik:v2.14
-     container_name: traefik
-     restart: unless-stopped
-     networks:
-       - web
-     ports:
-       - "80:80"
-       - "443:443"
-     volumes:
-       - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
-       - ./traefik/dynamic.yml:/etc/traefik/dynamic/dynamic.yml:ro
-       - /var/run/docker.sock:/var/run/docker.sock:ro
-     environment:
-       - CF_API_TOKEN=${CLOUDFLARE_API_TOKEN}
-       - CF_ZONE_ID=${CLOUDFLARE_ZONE_ID}
+services:
+  traefik:
+    image: traefik:v2.11
+    container_name: traefik
+    restart: unless-stopped
+    networks:
+      - web
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./traefik/dynamic.yml:/etc/traefik/dynamic/dynamic.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - CF_API_TOKEN=${CLOUDFLARE_API_TOKEN}
+      - CF_ZONE_ID=${CLOUDFLARE_ZONE_ID}
 
-   weaviate:
+  weaviate:
      image: semitechnologies/weaviate:latest
      container_name: weaviate
      depends_on:
@@ -34,7 +33,7 @@
      volumes:
        - weaviate_data:/data
 
-   minio:
+  minio:
      image: minio/minio:latest
      container_name: minio
      depends_on:
@@ -49,7 +48,7 @@
        - minio_data:/data
      command: server /data
 
-   vaultd:
+  vaultd:
      build:
        context: .
        dockerfile: Dockerfile
@@ -60,10 +59,10 @@
      networks:
        - web
 
- networks:
-   web:
-     driver: bridge
+networks:
+  web:
+    driver: bridge
 
- volumes:
-   weaviate_data:
-   minio_data:
+volumes:
+  weaviate_data:
+  minio_data:
