@@ -1,9 +1,9 @@
  # Patch P0003: Docker Compose stack for traefik/weaviate/minio/vaultd
- version: '3.8'
+# PATCH-P0005: fix traefik image version and remove obsolete compose version
 
  services:
    traefik:
-     image: traefik:v2.14
+    image: traefik:v2.11
      container_name: traefik
      restart: unless-stopped
      networks:
