@@ -1,4 +1,7 @@
 # PATCH-P0005: fix traefik image version and remove obsolete compose version
+# PATCH-P0006: add compose version for YAML compatibility
+
+version: "3.9"
 
 services:
   traefik:
