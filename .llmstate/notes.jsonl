@@ -2,3 +2,4 @@
 {"timestamp": "2025-06-30T11:13:56Z", "tag": "P0003", "note": "infra: add base compose stack for traefik/weaviate/minio/vaultd"}
 {"timestamp": "2025-06-30T20:54:13Z", "tag": "P0004", "note": "refactor: safety/lint fixes for agent-health-check script"}
 {"timestamp": "2025-06-30T21:15:45Z", "tag": "P0004", "note": "refactor: hardening agent_health script"}
+{"timestamp": "2025-06-30T22:00:10Z", "tag": "P0005", "note": "feat: add fallback logger config" }
