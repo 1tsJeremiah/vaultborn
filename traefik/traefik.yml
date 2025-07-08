@@ -14,11 +14,15 @@
      directory: /etc/traefik/dynamic
      watch: true
 
- certificatesResolvers:
-   cloudflare:
-     dnsChallenge:
-       provider: cloudflare
-       delayBeforeCheck: 0
+certificatesResolvers:
+  cloudflare:
+    acme:
+      email: admin@example.com
+      storage: /acme/acme.json
+      dnsChallenge:
+        provider: cloudflare
+        delayBeforeCheck: 0
 
  log:
    level: INFO
+
