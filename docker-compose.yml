@@ -1,69 +1,69 @@
- # Patch P0003: Docker Compose stack for traefik/weaviate/minio/vaultd
 # PATCH-P0005: fix traefik image version and remove obsolete compose version
+# PATCH-P0006: Compose YAML for traefik, weaviate, minio, vaultd
 
- services:
-   traefik:
+services:
+  traefik:
     image: traefik:v2.11
-     container_name: traefik
-     restart: unless-stopped
-     networks:
-       - web
-     ports:
-       - "80:80"
-       - "443:443"
-     volumes:
-       - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
-       - ./traefik/dynamic.yml:/etc/traefik/dynamic/dynamic.yml:ro
-       - /var/run/docker.sock:/var/run/docker.sock:ro
-     environment:
-       - CF_API_TOKEN=${CLOUDFLARE_API_TOKEN}
-       - CF_ZONE_ID=${CLOUDFLARE_ZONE_ID}
+    container_name: traefik
+    restart: unless-stopped
+    networks:
+      - web
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./traefik/dynamic.yml:/etc/traefik/dynamic/dynamic.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - CF_API_TOKEN=${CLOUDFLARE_API_TOKEN}
+      - CF_ZONE_ID=${CLOUDFLARE_ZONE_ID}
 
-   weaviate:
-     image: semitechnologies/weaviate:latest
-     container_name: weaviate
-     depends_on:
-       - traefik
-     restart: unless-stopped
-     networks:
-       - web
-     environment:
-       - QUERY_DEFAULTS_LIMIT=20
-       - AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED=true
-       - PERSISTENCE_DATA_PATH=/data
-     volumes:
-       - weaviate_data:/data
+  weaviate:
+    image: semitechnologies/weaviate:latest
+    container_name: weaviate
+    depends_on:
+      - traefik
+    restart: unless-stopped
+    networks:
+      - web
+    environment:
+      - QUERY_DEFAULTS_LIMIT=20
+      - AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED=true
+      - PERSISTENCE_DATA_PATH=/data
+    volumes:
+      - weaviate_data:/data
 
-   minio:
-     image: minio/minio:latest
-     container_name: minio
-     depends_on:
-       - traefik
-     restart: unless-stopped
-     networks:
-       - web
-     environment:
-       - MINIO_ROOT_USER=minioadmin
-       - MINIO_ROOT_PASSWORD=minioadmin
-     volumes:
-       - minio_data:/data
-     command: server /data
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    depends_on:
+      - traefik
+    restart: unless-stopped
+    networks:
+      - web
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    volumes:
+      - minio_data:/data
+    command: server /data
 
-   vaultd:
-     build:
-       context: .
-       dockerfile: Dockerfile
-     container_name: vaultd
-     depends_on:
-       - traefik
-     restart: unless-stopped
-     networks:
-       - web
+  vaultd:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vaultd
+    depends_on:
+      - traefik
+    restart: unless-stopped
+    networks:
+      - web
 
- networks:
-   web:
-     driver: bridge
+networks:
+  web:
+    driver: bridge
 
- volumes:
-   weaviate_data:
-   minio_data:
+volumes:
+  weaviate_data:
+  minio_data:

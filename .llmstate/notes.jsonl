@@ -2,8 +2,7 @@
 {"timestamp": "2025-06-30T11:13:56Z", "tag": "P0003", "note": "infra: add base compose stack for traefik/weaviate/minio/vaultd"}
 {"timestamp": "2025-06-30T20:54:13Z", "tag": "P0004", "note": "refactor: safety/lint fixes for agent-health-check script"}
 {"timestamp": "2025-06-30T21:15:45Z", "tag": "P0004", "note": "refactor: hardening agent_health script"}
-<<<<<<< ours
 {"timestamp": "2025-06-30T22:00:10Z", "tag": "P0005", "note": "feat: add fallback logger config" }
-=======
 {"timestamp": "2025-07-07T15:44:52Z", "tag": "P0005", "note": "infra: fix traefik image version"}
->>>>>>> theirs
+{"timestamp": "2025-07-07T16:00:03Z", "tag": "P0005", "note": "fix traefik image version and remove obsolete compose version"}
+{"timestamp": "2025-07-07T16:31:25Z", "tag": "P0006", "note": "add compose version for YAML compatibility"}
