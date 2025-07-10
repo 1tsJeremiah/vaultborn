@@ -6,3 +6,4 @@
 {"timestamp": "2025-07-07T15:44:52Z", "tag": "P0005", "note": "infra: fix traefik image version"}
 {"timestamp": "2025-07-07T16:00:03Z", "tag": "P0005", "note": "fix traefik image version and remove obsolete compose version"}
 {"timestamp": "2025-07-07T16:31:25Z", "tag": "P0006", "note": "add compose version for YAML compatibility"}
+{"timestamp": "2025-07-08T05:51:33Z", "tag": "P0008", "note": "traefik: fix cloudflare resolver config"}
