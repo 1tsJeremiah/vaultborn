@@ -1,24 +1,32 @@
- # Patch P0003: Static configuration for Traefik
- entryPoints:
+# PATCH-P0008: configure cloudflare certificate resolver
+# Patch P0003: Static configuration for Traefik
+entryPoints:
    web:
      address: ":80"
    websecure:
      address: ":443"
 
- api:
+api:
    dashboard: true
    insecure: true
 
- providers:
+providers:
    file:
      directory: /etc/traefik/dynamic
      watch: true
 
- certificatesResolvers:
-   cloudflare:
-     dnsChallenge:
-       provider: cloudflare
-       delayBeforeCheck: 0
+certificatesResolvers:
+  cloudflare:
+    acme:
+      email: admin@example.com
+      storage: /acme/acme.json
+      storage: acme.json
+      dnsChallenge:
+        provider: cloudflare
+        delayBeforeCheck: 0
 
  log:
+   level: INFO
+
+log:
    level: INFO
