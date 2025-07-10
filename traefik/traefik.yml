@@ -18,7 +18,7 @@ providers:
 certificatesResolvers:
   cloudflare:
     acme:
-      email: admin@example.com
+      email: mail@1tsjeremiah.com
       storage: /acme/acme.json
       storage: acme.json
       dnsChallenge:
