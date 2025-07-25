@@ -67,9 +67,16 @@ def append_log(record):
 def run_health_check(tag, agent, cmd):
     start = now_ts()
     try:
-        if any(c in cmd for c in (';', '|', '&', '$', '<', '>', '`')):
+        # More comprehensive security check
+        dangerous_chars = (';', '|', '&', '$', '<', '>', '`', '(', ')', '{', '}', '[', ']', '\\', '"', "'", '~', '*', '?', '!')
+        if any(c in cmd for c in dangerous_chars):
             raise ValueError(f'Unsafe characters in command: {cmd}')
-        parts = cmd.split()
+        
+        # Use shlex for proper command parsing
+        parts = shlex.split(cmd)
+        if not parts:
+            raise ValueError('Empty command')
+            
         result = subprocess.run(parts, stdout=subprocess.PIPE,
                                 stderr=subprocess.STDOUT, timeout=30)
         status = 'ok' if result.returncode == 0 else 'fail'
