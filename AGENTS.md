@@ -36,3 +36,7 @@ This guarantees traceability, prevents merge artifacts, and ensures agent-driven
 **Failure to follow this protocol may result in lost data, corrupted audit trails, or agent downtime.**
 _This rule is law for all automated and manual patch/merge actions in Vaultborn._
 
+
+## Codex Environment
+
+This repository ships a `codex.yaml` file that defines the default container image and task commands for OpenAI Codex. The setup script installs Go modules and optional Python dependencies via `scripts/setup.sh`. Linting and tests are run through `scripts/run_tests.sh` which runs `go vet`, `go test`, and a basic Python syntax check. Agents should run these tasks before committing any changes.
