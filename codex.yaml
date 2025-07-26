@@ -1,0 +1,7 @@
+image: openai/codex-universal
+setup:
+  - ./scripts/setup.sh
+lint:
+  - ./scripts/run_tests.sh
+test:
+  - ./scripts/run_tests.sh
