@@ -8,6 +8,9 @@ This project uses append-only, always-synced state docs. All agents (Codex, GPT,
 
 For more: see `.llmstate/patch-pipeline.jsonl`.
 
+Additional guidance for running OpenAI Agent and Codex together is in
+`docs/openai-agent-cicd.md`.
+
 ## Agent Registry
 
 | Agent      | Health Check Command |

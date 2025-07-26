@@ -9,3 +9,5 @@
 {"timestamp":"2025-07-08T05:22:32Z","tag":"P0007","note":"add minimal Dockerfile for vaultd"}
 {"timestamp":"2025-07-08T05:23:40Z","tag":"P0008","note":"fix Traefik dnsChallenge config"}
 {"timestamp":"2025-07-08T05:51:33Z","tag":"P0008","note":"traefik: fix cloudflare resolver config"}
+{"timestamp":"2025-07-26T05:48:55Z","tag":"P0009","note":"docs: start OpenAI Agent/Codex CI/CD integration"}
+{"timestamp":"2025-07-26T05:48:55Z","tag":"P0009","note":"docs + workflow for OpenAI Agent/Codex CI"}
