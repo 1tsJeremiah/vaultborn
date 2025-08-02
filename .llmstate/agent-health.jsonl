@@ -1,0 +1,6 @@
+{"tag": "HEALTH-1", "timestamp": "2025-07-26T05:49:14.543091Z", "agent": "vaultd", "status": "fail", "output": "curl: (7) Failed to connect to localhost port 8080 after 0 ms: Couldn't connect to server"}
+{"tag": "HEALTH-1", "timestamp": "2025-07-26T05:49:14.554471Z", "agent": "vault-agent", "status": "error", "output": "Unsafe characters in command: ./vault-agent/vault-agent --help >/dev/null"}
+{"tag": "HEALTH-1", "timestamp": "2025-07-26T05:49:14.554598Z", "agent": "traefik", "status": "fail", "output": "curl: (22) The requested URL returned error: 503"}
+{"tag": "HEALTH-1", "timestamp": "2025-07-26T05:49:14.749122Z", "agent": "weaviate", "status": "fail", "output": "curl: (22) The requested URL returned error: 503"}
+{"tag": "HEALTH-1", "timestamp": "2025-07-26T05:49:14.893942Z", "agent": "minio", "status": "fail", "output": "curl: (22) The requested URL returned error: 503"}
+{"tag": "HEALTH-1", "timestamp": "2025-07-26T05:49:15.073329Z", "agent": null, "event": "completed"}

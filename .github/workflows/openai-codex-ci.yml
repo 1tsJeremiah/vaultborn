@@ -1,0 +1,28 @@
+# PATCH-P0009: Run OpenAI Agent with Codex context
+name: OpenAI Codex CI
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  codex-agent:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install openai
+      - name: Run agent bootstrap
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          bash scripts/agent-bootstrap.sh --task "ci"
+      - name: Health check
+        run: |
+          python scripts/agent_health.py
+          cat .llmstate/agent-health.jsonl || true
